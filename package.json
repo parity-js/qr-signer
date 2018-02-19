@@ -1,5 +1,5 @@
 {
-  "name": "qr-signer",
+  "name": "@parity/qr-signer",
   "version": "0.1.0",
   "description": "A React Component that handles generating and scanning QR codes compatible with Parity Signer",
   "author": "Maciej Hirsz <maciej@parity.io>",
