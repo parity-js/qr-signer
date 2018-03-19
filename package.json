@@ -1,12 +1,12 @@
 {
   "name": "@parity/qr-signer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A React Component that handles generating and scanning QR codes compatible with Parity Signer",
-  "author": "Maciej Hirsz <maciej@parity.io>",
+  "author": "Parity Technologies Ltd. <admin@parity.io>",
   "license": "GPLv3",
   "repository": {
     "type": "git",
-    "url": "git@github.com:maciejhirsz/qr-signer"
+    "url": "git@github.com:Parity-JS/qr-signer"
   },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
