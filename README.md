@@ -14,7 +14,8 @@ npm install --save @parity/qr-signer
 - `onScan` - function, required - Callback that will be executed with the data scanned from the QR code.
 - `size` - number - Display width and height in pixels, QR code will be scaled if necessary.
 - `account` - string, required if `scan === false` - Ethereum address, `0x` prefixed.
-- `rlp` - string, required if `scan === false` - RLP-encoded Ethereum transaction, `0x` prefixed.
+- `rlp` - string, required if `scan === false` unless `data` is present - RLP-encoded Ethereum transaction, `0x` prefixed.
+- `data` - string, required if `scan === false` unless `rlp` is present - arbitrary byte data to sign, `0x` prefixed.
 
 ## Example
 

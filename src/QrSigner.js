@@ -23,6 +23,14 @@ import PropTypes from 'prop-types'
 import QrCode from './QrCode';
 import QrScan from './QrScan';
 
+function remove0x(value) {
+  if (value.substr(0, 2) === '0x') {
+    return value.substr(2);
+  }
+
+  return value;
+}
+
 
 export default class QrSigner extends Component {
   static propTypes = {
@@ -39,7 +47,10 @@ export default class QrSigner extends Component {
     account: PropTypes.string,
 
     // (if scan === false) RLP-encoded Ethereum transaction, `0x` prefixed
-    rlp: PropTypes.string
+    rlp: PropTypes.string,
+
+    // (if scan === false) data to sign, if not signing RLP
+    data: PropTypes.string,
   };
 
   static defaultProps = {
@@ -78,28 +89,41 @@ export default class QrSigner extends Component {
       );
     }
 
-    let { account, rlp } = this.props;
+    let { account, rlp, data } = this.props;
+    let value;
 
-    if (!account || !rlp) {
-      console.error('Missing `account` or `rlp` prop on QrSigner!');
+    if (!account || !(rlp || data)) {
+      console.error('Missing `account`, `rlp` or `data` prop on QrSigner!');
 
       return null;
     }
 
-    if (account.substr(0, 2) === '0x') account = account.substr(2);
-    if (rlp.substr(0, 2) === '0x') rlp = rlp.substr(2);
+    account = remove0x(account);
 
-    const value = JSON.stringify({
-      action: 'signTransaction',
-      data: { account, rlp }
-    });
+    if (rlp) {
+      rlp = remove0x(rlp);
+
+      value = {
+        action: 'signTransaction',
+        data: { account, rlp }
+      };
+    } else {
+      data = remove0x(data);
+
+      value = {
+        action: 'signData',
+        data: { account, data }
+      };
+    }
+
+    console.log(value);
 
     const width = `${size}px`;
     const height = width;
 
     return (
       <div style={style}>
-        <QrCode value={value} />
+        <QrCode value={JSON.stringify(value)} />
       </div>
     );
   }
