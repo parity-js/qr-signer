@@ -116,8 +116,6 @@ export default class QrSigner extends Component {
       };
     }
 
-    console.log(value);
-
     const width = `${size}px`;
     const height = width;
 
