@@ -74,7 +74,7 @@ export default class QrSigner extends Component {
       }
 
       this.props.onScan({ address, chainId });
-    } else if (/[0-9a-fA-F]{40}/.test(data)) {
+    } else if (/^[0-9a-fA-F]{40}$/.test(data)) {
       // Legacy address without any prefixes
       this.props.onScan({ address: `0x${data}`, chainId: 1 });
     } else {

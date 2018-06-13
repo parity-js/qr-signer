@@ -1,6 +1,6 @@
 {
   "name": "@parity/qr-signer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A React Component that handles generating and scanning QR codes compatible with Parity Signer",
   "author": "Parity Technologies Ltd. <admin@parity.io>",
   "license": "GPLv3",
