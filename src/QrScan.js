@@ -22,7 +22,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Reader from 'react-qr-reader';
 
-
 const SCAN_DELAY = 100;
 const SCAN_STYLE = {
   display: 'inline-block',

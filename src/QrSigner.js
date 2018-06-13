@@ -19,6 +19,7 @@
  */
 
 import React, { Component } from 'react'
+import { parseURL } from '@parity/erc681';
 import PropTypes from 'prop-types'
 import QrCode from './QrCode';
 import QrScan from './QrScan';
@@ -64,11 +65,22 @@ export default class QrSigner extends Component {
   handleScan = (data) => {
     if (!data) return;
 
-    if (data.substr(0, 2) !== '0x') {
-      data = `0x${data}`;
-    }
+    if (data.substring(0, 9) === 'ethereum:') {
+      // ERC-681 address URL
+      const { prefix, address, chainId } = parseURL(data);
 
-    this.props.onScan(data);
+      if (prefix !== 'pay') {
+        throw new Error(`Unsupported ERC-831 prefix: ${prefix}`);
+      }
+
+      this.props.onScan({ address, chainId });
+    } else if (/[0-9a-fA-F]{40}/.test(data)) {
+      // Legacy address without any prefixes
+      this.props.onScan({ address: `0x${data}`, chainId: 1 });
+    } else {
+      // Signature
+      this.props.onScan(data);
+    }
   };
 
   render () {
