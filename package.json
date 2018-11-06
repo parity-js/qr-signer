@@ -12,6 +12,8 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "scripts": {
+    "test": "echo 'no tests yet'",
+    "lint": "echo 'no linting yet'",
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepublish": "npm run build"
