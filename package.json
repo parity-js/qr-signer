@@ -21,7 +21,7 @@
   "dependencies": {
     "@parity/erc681": "0.1.1",
     "qrcode-generator": "1.4.1",
-    "react-qr-reader": "2.1.1"
+    "react-qr-reader": "2.1.2"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
