@@ -5,7 +5,7 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "@parity/qr-signer": "../",
+    "@parity/qr-signer": "^0.3.2",
     "prop-types": "^15.4.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
