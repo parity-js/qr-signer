@@ -1,6 +1,6 @@
 .qr {
   video {
     border: 2px solid rgb(200, 200, 200);
-    margin: 1.5em auto;
+    margin: 1.5em 0;
   }
 }
