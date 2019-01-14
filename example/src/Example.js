@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import QrSigner from './dist'
+import QrSigner from '@parity/qr-signer'
 
 export default class Example extends Component {
   state = {
