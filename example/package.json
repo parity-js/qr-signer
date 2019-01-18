@@ -7,8 +7,8 @@
   "dependencies": {
     "@parity/qr-signer": "^0.3.2",
     "prop-types": "^15.4.4",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-scripts": "^2.1.3"
   },
   "scripts": {
