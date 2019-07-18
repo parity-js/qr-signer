@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import { ethereumLegacyEncode } from './ethereumLegacy';
-import { substrateEncode } from './substrate';
+import { ethereumLegacyEncode } from './ethereumLegacy'
+import { substrateEncode } from './substrate'
 
 export function encode(network, value) {
   try {
@@ -23,18 +23,18 @@ export function encode(network, value) {
       case 'ethereum': {
         return {
           error: 'Ethereum network not supported yet'
-        };
+        }
       }
       case 'ethereumLegacy': {
-        return { result: ethereumLegacyEncode(value) };
+        return { result: ethereumLegacyEncode(value) }
       }
       case 'substrate': {
-        return { result: substrateEncode(value) };
+        return { result: substrateEncode(value) }
       }
       default:
-        return { error: `Unknown network ${network}` };
+        return { error: `Unknown network ${network}` }
     }
   } catch (error) {
-    return { error: error.message };
+    return { error: error.message }
   }
 }

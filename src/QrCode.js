@@ -20,19 +20,14 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import qrcode from 'qrcode-generator';
+import qrcode from 'qrcode-generator'
 
-import { calculateType } from './size';
-import styles from './QrCode.css';
-
-const QROPTS = {
-  ERROR_LEVEL: 'M',
-  MAX_SIZE: 40,
-  MIN_SIZE: 5
-};
+import styles from './QrCode.css'
 
 export default class QrCode extends Component {
   static propTypes = {
+    margin: PropTypes.number,
+    size: PropTypes.number,
     value: PropTypes.string.isRequired
   };
 
@@ -41,22 +36,22 @@ export default class QrCode extends Component {
   };
 
   componentWillMount() {
-    this.generateCode(this.props);
+    this.generateCode(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    const hasChanged = nextProps.value !== this.props.value ||
+    const hasChanged =
+      nextProps.value !== this.props.value ||
       nextProps.size !== this.props.size ||
-      nextProps.margin !== this.props.margin;
+      nextProps.margin !== this.props.margin
 
     if (hasChanged) {
-      this.generateCode(nextProps);
+      this.generateCode(nextProps)
     }
   }
 
   render() {
-    const { className } = this.props;
-    const { image } = this.state;
+    const { image } = this.state
 
     return (
       <div
@@ -65,19 +60,18 @@ export default class QrCode extends Component {
           __html: image
         }}
       />
-    );
+    )
   }
 
   generateCode(props) {
-    const { value } = props;
-    const type = calculateType(value.length, QROPTS.ERROR_LEVEL);
-    const qr = qrcode(0, 'M');
+    const { value } = props
+    const qr = qrcode(0, 'M')
 
-    qr.addData(value, 'Byte');
-    qr.make();
+    qr.addData(value, 'Byte')
+    qr.make()
 
     this.setState({
       image: qr.createImgTag(16, 0)
-    });
+    })
   }
 }

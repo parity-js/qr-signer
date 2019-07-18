@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import assert from '@polkadot/util/assert';
-import hexStripPrefix from '@polkadot/util/hex/stripPrefix';
+import assert from '@polkadot/util/assert'
+import hexStripPrefix from '@polkadot/util/hex/stripPrefix'
 
 /**
  * Prevalidate and clean the input JSON payload.
@@ -23,22 +23,22 @@ import hexStripPrefix from '@polkadot/util/hex/stripPrefix';
  * @param json - JSON payload to prevalidate
  */
 function clean(json) {
-  assert(typeof json === 'object', `Expected object, got ${json}`);
+  assert(typeof json === 'object', `Expected object, got ${json}`)
   assert(
     ['signData', 'signTransaction'].includes(json.action),
     `Field 'action' should be signData or signTransaction, got ${json.action}`
-  );
-  assert(json.data, `Expected non-empty 'data' field, got ${json.data}`);
+  )
+  assert(json.data, `Expected non-empty 'data' field, got ${json.data}`)
 
   if (json.action === 'signData') {
     assert(
       json.data.account,
       `Expected non-empty 'data.account' field, got ${json.data.account}`
-    );
+    )
     assert(
       json.data.data,
       `Expected non-empty 'data.data' field, got ${json.data.data}`
-    );
+    )
 
     return {
       action: json.action,
@@ -46,16 +46,16 @@ function clean(json) {
         account: hexStripPrefix(json.data.account),
         data: hexStripPrefix(json.data.rlp)
       }
-    };
+    }
   } else if (json.action === 'signTransaction') {
     assert(
       json.data.account,
       `Expected non-empty 'data.account' field, got ${json.data.account}`
-    );
+    )
     assert(
       json.data.rlp,
       `Expected non-empty 'data.rlp' field, got ${json.data.rlp}`
-    );
+    )
 
     return {
       action: json.action,
@@ -63,10 +63,10 @@ function clean(json) {
         account: hexStripPrefix(json.data.account),
         rlp: hexStripPrefix(json.data.rlp)
       }
-    };
+    }
   }
 }
 
 export function ethereumLegacyEncode(json) {
-  return JSON.stringify(clean(json));
+  return JSON.stringify(clean(json))
 }

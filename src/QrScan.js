@@ -18,16 +18,16 @@
  * @class QrScan
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Reader from 'react-qr-reader';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Reader from 'react-qr-reader'
 
-const SCAN_DELAY = 100;
+const SCAN_DELAY = 100
 const SCAN_STYLE = {
   display: 'inline-block',
   width: '100%',
-  height: '100%',
-};
+  height: '100%'
+}
 
 export default function QrScan({ onError, onScan }) {
   return (
@@ -37,16 +37,16 @@ export default function QrScan({ onError, onScan }) {
       onScan={onScan}
       style={SCAN_STYLE}
     />
-  );
+  )
 }
 
 QrScan.propTypes = {
   onError: PropTypes.func,
   onScan: PropTypes.func.isRequired
-};
+}
 
 QrScan.defaultProps = {
   onError: (error) => {
-    console.error('QrScan', error);
+    console.error('QrScan', error)
   }
-};
+}

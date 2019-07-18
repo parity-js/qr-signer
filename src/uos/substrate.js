@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import assert from '@polkadot/util/assert';
-import u8aConcat from '@polkadot/util/u8a/concat';
+import assert from '@polkadot/util/assert'
+import u8aConcat from '@polkadot/util/u8a/concat'
 
 /**
  * Prevalidate and clean the input JSON payload.
@@ -23,7 +23,7 @@ import u8aConcat from '@polkadot/util/u8a/concat';
  * @param json - JSON payload to prevalidate
  */
 function validate(json) {
-  assert(typeof json === 'object', `Expected object, got ${json}`);
+  assert(typeof json === 'object', `Expected object, got ${json}`)
   assert(
     [
       'signMessage',
@@ -34,18 +34,18 @@ function validate(json) {
     `Expected field 'action' to be signMessage, signTransaction, signImmortal, signTransactionHash, got ${
       json.action
     }`
-  );
+  )
   // TODO Implement signImmortal if needed, though optional as signTransaction
   // can also cater for immortals
   assert(
     json.action !== 'signImmortal',
     'Please use signTransaction instead of signImmortal'
-  );
+  )
 
   assert(
     ['ed25519', 'sr25519'].includes(json.crypto),
     `Expected 'crypto' to be ed25519, sr25519, got ${json.crypto}`
-  );
+  )
 
   assert(
     // TODO now ed25519 and sr25519 have both length 32 for account ids, so we
@@ -55,13 +55,13 @@ function validate(json) {
     // networkId for that though)
     json.account instanceof Uint8Array && json.account.length === 32,
     `Expected 'account' to be 32-byte bytes array, got ${json.account}`
-  );
+  )
 
   if (json.action === 'signMessage') {
     assert(
       json.data instanceof Uint8Array,
       `Expected Uint8Array 'data' field, got ${json.data}`
-    );
+    )
   } else if (json.action === 'signTransaction') {
     // TODO Should we allow other formats for signTransaction? e.g.
     // PolkadotJS's SignaturePayload, or just an object with
@@ -69,26 +69,26 @@ function validate(json) {
     assert(
       json.data instanceof Uint8Array,
       `Expected Uint8Array 'data' field, got ${json.data}`
-    );
+    )
   } else if (json.action === 'signTransactionHash') {
     // MUST be the Blake2s 32-byte hash of the signature payload
     assert(
       json.data instanceof Uint8Array && json.data.length === 32,
       `Expected Uint8Array 'data' field of length 32, got ${json.data}`
-    );
+    )
   }
 }
 
 function getNetworkByte() {
-  return Uint8Array.from([53]);
+  return Uint8Array.from([53])
 }
 
 function getCryptoByte(crypto) {
   switch (crypto) {
     case 'ed25519':
-      return Uint8Array.from([0]);
+      return Uint8Array.from([0])
     case 'sr25519':
-      return Uint8Array.from([1]);
+      return Uint8Array.from([1])
     default:
   }
 }
@@ -96,17 +96,17 @@ function getCryptoByte(crypto) {
 function getActionByte(action) {
   switch (action) {
     case 'signTransaction':
-      return Uint8Array.from([0]);
+      return Uint8Array.from([0])
     case 'signTransactionHash':
-      return Uint8Array.from([1]);
+      return Uint8Array.from([1])
     case 'signMessage':
-      return Uint8Array.from([3]);
+      return Uint8Array.from([3])
     default:
   }
 }
 
 export function substrateEncode(json) {
-  validate(json); // Will throw if something's wrong
+  validate(json) // Will throw if something's wrong
 
   return u8aConcat(
     getNetworkByte(),
@@ -114,5 +114,5 @@ export function substrateEncode(json) {
     getActionByte(json.action),
     json.account,
     json.data
-  );
+  )
 }

@@ -14,11 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import extrinsics from '@polkadot/api-metadata/extrinsics/static';
-import { ImmortalEra, Method, SignaturePayload } from '@polkadot/types';
-import { hexToU8a } from '@polkadot/util';
+import extrinsics from '@polkadot/api-metadata/extrinsics/static'
+import { ImmortalEra, Method, SignaturePayload } from '@polkadot/types'
+import { hexToU8a } from '@polkadot/util'
 
-import { substrateEncode } from './substrate';
+import { substrateEncode } from './substrate'
 
 const balancesTransfer =
   '0x' +
@@ -30,12 +30,12 @@ const balancesTransfer =
   '0000' + // nonce
   '0500' + // balances.transfer
   'ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9' + // to
-  'e56c'; // value
+  'e56c' // value
 
 describe('substrate', () => {
   beforeAll(() => {
-    Method.injectMethods(extrinsics);
-  });
+    Method.injectMethods(extrinsics)
+  })
 
   it('should correctly create Uint8array', () => {
     const payload = new SignaturePayload({
@@ -44,7 +44,7 @@ describe('substrate', () => {
       era: new ImmortalEra(),
       blockHash:
         '0x6f6f9bba0eed8e3ae9446c37eee763f93118b52a315a7b46090453ba6288da1f'
-    }).toU8a();
+    }).toU8a()
 
     expect(
       substrateEncode({
@@ -129,6 +129,6 @@ describe('substrate', () => {
         218,
         31
       ])
-    );
-  });
-});
+    )
+  })
+})

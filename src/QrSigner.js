@@ -18,13 +18,13 @@
  * @class QrSigner
  */
 
-import React, { Component } from 'react';
-import { parseURL } from '@parity/erc681';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { parseURL } from '@parity/erc681'
+import PropTypes from 'prop-types'
 
-import QrCode from './QrCode';
-import QrScan from './QrScan';
-import { encode } from './uos';
+import QrCode from './QrCode'
+import QrScan from './QrScan'
+import { encode } from './uos'
 
 export default class QrSigner extends Component {
   static propTypes = {
@@ -53,56 +53,56 @@ export default class QrSigner extends Component {
   };
 
   handleScan = data => {
-    if (!data) return;
+    if (!data) return
 
     if (data.substring(0, 9) === 'ethereum:') {
       // ERC-681 address URL
-      const { prefix, address, chainId } = parseURL(data);
+      const { prefix, address, chainId } = parseURL(data)
 
       if (prefix !== 'pay') {
-        throw new Error(`Unsupported ERC-831 prefix: ${prefix}`);
+        throw new Error(`Unsupported ERC-831 prefix: ${prefix}`)
       }
 
-      this.props.onScan({ address, chainId });
+      this.props.onScan({ address, chainId })
     } else if (/^[0-9a-fA-F]{40}$/.test(data)) {
       // Legacy address without any prefixes
-      this.props.onScan({ address: `0x${data}`, chainId: 1 });
+      this.props.onScan({ address: `0x${data}`, chainId: 1 })
     } else {
       // Signature
-      this.props.onScan(data);
+      this.props.onScan(data)
     }
   };
 
   render() {
-    const { onError, scan, size } = this.props;
+    const { onError, scan, size } = this.props
 
     const style = {
       width: `${size}px`,
       height: `${size}px`
-    };
+    }
 
     if (scan) {
-      const { handleScan } = this;
+      const { handleScan } = this
 
       return (
         <div style={style}>
           <QrScan onScan={handleScan} />
         </div>
-      );
+      )
     }
 
-    const { network, payload } = this.props;
-    const value = encode(network, payload);
+    const { network, payload } = this.props
+    const value = encode(network, payload)
 
     if (value.error) {
-      onError && onError(value.error);
-      return <div style={style}>Error in encoding: {value.error}</div>;
+      onError && onError(value.error)
+      return <div style={style}>Error in encoding: {value.error}</div>
     }
 
     return (
       <div style={style}>
         <QrCode value={value.result} />
       </div>
-    );
+    )
   }
 }

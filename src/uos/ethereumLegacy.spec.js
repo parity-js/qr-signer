@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import { ethereumLegacyEncode } from './ethereumLegacy';
+import { ethereumLegacyEncode } from './ethereumLegacy'
 
 describe('ethereumLegacy', () => {
   it('should correctly clean input', () => {
@@ -36,6 +36,6 @@ describe('ethereumLegacy', () => {
             'eb808504a817c8008252089400255cf193f1ba6dd3ec08ebe62e393030f4dd34872386f26fc10000802a8080'
         }
       })
-    );
-  });
-});
+    )
+  })
+})
