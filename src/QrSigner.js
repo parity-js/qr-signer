@@ -101,7 +101,7 @@ export default class QrSigner extends Component {
 
     return (
       <div style={style}>
-        <QrCode value={JSON.stringify(value.result)} />
+        <QrCode value={value.result} />
       </div>
     );
   }

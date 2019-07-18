@@ -68,5 +68,5 @@ function clean(json) {
 }
 
 export function ethereumLegacyEncode(json) {
-  return clean(json);
+  return JSON.stringify(clean(json));
 }
