@@ -27,13 +27,15 @@ describe('ethereumLegacy', () => {
             '0xeb808504a817c8008252089400255cf193f1ba6dd3ec08ebe62e393030f4dd34872386f26fc10000802a8080'
         }
       })
-    ).toEqual({
-      action: 'signTransaction',
-      data: {
-        account: '007311b88A03af17dbb37B47ab7C9Ab556708D56',
-        rlp:
-          'eb808504a817c8008252089400255cf193f1ba6dd3ec08ebe62e393030f4dd34872386f26fc10000802a8080'
-      }
-    });
+    ).toEqual(
+      JSON.stringify({
+        action: 'signTransaction',
+        data: {
+          account: '007311b88A03af17dbb37B47ab7C9Ab556708D56',
+          rlp:
+            'eb808504a817c8008252089400255cf193f1ba6dd3ec08ebe62e393030f4dd34872386f26fc10000802a8080'
+        }
+      })
+    );
   });
 });

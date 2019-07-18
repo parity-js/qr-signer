@@ -17,7 +17,6 @@
 import React, { Component } from 'react';
 
 import EthereumLegacy from './EthereumLegacy';
-import Substrate from './Substrate';
 
 export default class Example extends Component {
   render() {
@@ -27,7 +26,9 @@ export default class Example extends Component {
 
         <hr />
 
-        <Substrate />
+        {/* qrcode-generator doesn't support inputs that are Uint8Array */}
+        {/* https://github.com/kazuhikoarase/qrcode-generator/issues/73 */}
+        {/* <Substrate /> */}
       </div>
     );
   }
