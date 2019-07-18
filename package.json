@@ -12,7 +12,7 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "scripts": {
-    "test": "react-scripts test",
+    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
     "lint": "echo 'no linting yet'",
     "build": "rollup -c",
     "start": "rollup -c -w",
