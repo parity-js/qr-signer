@@ -14,22 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, { Component } from 'react';
+import { ethereumLegacyEncode } from './ethereumLegacy'
+import { substrateEncode } from './substrate'
 
-import EthereumLegacy from './EthereumLegacy';
-
-export default class Example extends Component {
-  render() {
-    return (
-      <div>
-        <EthereumLegacy />
-
-        <hr />
-
-        {/* qrcode-generator doesn't support inputs that are Uint8Array */}
-        {/* https://github.com/kazuhikoarase/qrcode-generator/issues/73 */}
-        {/* <Substrate /> */}
-      </div>
-    );
+export function encode(network, value) {
+  try {
+    switch (network) {
+      case 'ethereum': {
+        return {
+          error: 'Ethereum network not supported yet'
+        }
+      }
+      case 'ethereumLegacy': {
+        return { result: ethereumLegacyEncode(value) }
+      }
+      case 'substrate': {
+        return { result: substrateEncode(value) }
+      }
+      default:
+        return { error: `Unknown network ${network}` }
+    }
+  } catch (error) {
+    return { error: error.message }
   }
 }

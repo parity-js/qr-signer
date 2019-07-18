@@ -1,4 +1,4 @@
-// Copyright 2015-2018 Parity Technologies (UK) Ltd.
+// Copyright 2015-2019 Parity Technologies (UK) Ltd.
 // This file is part of Parity.
 
 // Parity is free software: you can redistribute it and/or modify
@@ -19,19 +19,12 @@
  */
 
 import React, { Component } from 'react'
-import { parseURL } from '@parity/erc681';
+import { parseURL } from '@parity/erc681'
 import PropTypes from 'prop-types'
-import QrCode from './QrCode';
-import QrScan from './QrScan';
 
-function remove0x(value) {
-  if (value.substr(0, 2) === '0x') {
-    return value.substr(2);
-  }
-
-  return value;
-}
-
+import QrCode from './QrCode'
+import QrScan from './QrScan'
+import { encode } from './uos'
 
 export default class QrSigner extends Component {
   static propTypes = {
@@ -44,97 +37,72 @@ export default class QrSigner extends Component {
     // Display width and height in pixels, QR code will be scaled if necessary
     size: PropTypes.number,
 
-    // (if scan === false) Ethereum address, `0x` prefixed
-    account: PropTypes.string,
+    // (if scan === false) The network in which we want to encode the value
+    network: PropTypes.oneOf(['ethereumLegacy', 'substrate']),
 
-    // (if scan === false) RLP-encoded Ethereum transaction, `0x` prefixed
-    rlp: PropTypes.string,
+    // (if scan === false) The payload to show as a QR code, different for each
+    // network
+    payload: PropTypes.object,
 
-    // (if scan === false) data to sign, if not signing RLP
-    data: PropTypes.string,
+    // (if scan === false) Callback when an encoding error occurs
+    onError: PropTypes.func
   };
 
   static defaultProps = {
     size: 250
   };
 
-  handleClick = () => {
-    this.setState({ step: SCAN });
-  };
-
-  handleScan = (data) => {
-    if (!data) return;
+  handleScan = data => {
+    if (!data) return
 
     if (data.substring(0, 9) === 'ethereum:') {
       // ERC-681 address URL
-      const { prefix, address, chainId } = parseURL(data);
+      const { prefix, address, chainId } = parseURL(data)
 
       if (prefix !== 'pay') {
-        throw new Error(`Unsupported ERC-831 prefix: ${prefix}`);
+        throw new Error(`Unsupported ERC-831 prefix: ${prefix}`)
       }
 
-      this.props.onScan({ address, chainId });
+      this.props.onScan({ address, chainId })
     } else if (/^[0-9a-fA-F]{40}$/.test(data)) {
       // Legacy address without any prefixes
-      this.props.onScan({ address: `0x${data}`, chainId: 1 });
+      this.props.onScan({ address: `0x${data}`, chainId: 1 })
     } else {
       // Signature
-      this.props.onScan(data);
+      this.props.onScan(data)
     }
   };
 
-  render () {
-    const { scan, size } = this.props;
+  render() {
+    const { onError, scan, size } = this.props
 
     const style = {
       width: `${size}px`,
-      height: `${size}px`,
-    };
+      height: `${size}px`
+    }
 
     if (scan) {
-      const { handleScan } = this;
+      const { handleScan } = this
 
       return (
         <div style={style}>
           <QrScan onScan={handleScan} />
         </div>
-      );
+      )
     }
 
-    let { account, rlp, data } = this.props;
-    let value;
+    const { network, payload } = this.props
+    const value = encode(network, payload)
 
-    if (!account || !(rlp || data)) {
-      console.error('Missing `account`, `rlp` or `data` prop on QrSigner!');
-
-      return null;
+    if (value.error) {
+      onError && onError(value.error)
+      return <div style={style}>Error in encoding: {value.error}</div>
     }
-
-    account = remove0x(account);
-
-    if (rlp) {
-      rlp = remove0x(rlp);
-
-      value = {
-        action: 'signTransaction',
-        data: { account, rlp }
-      };
-    } else {
-      data = remove0x(data);
-
-      value = {
-        action: 'signData',
-        data: { account, data }
-      };
-    }
-
-    const width = `${size}px`;
-    const height = width;
 
     return (
       <div style={style}>
-        <QrCode value={JSON.stringify(value)} />
+        <QrCode value={value.result} />
       </div>
-    );
+    )
   }
 }

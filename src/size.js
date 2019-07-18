@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-const _QR_SIZES = { 'L': [], 'M': [], 'H': [], 'Q': [] };
-const QR_LEVELS = Object.keys(_QR_SIZES);
+const _QR_SIZES = { L: [], M: [], H: [], Q: [] }
+const QR_LEVELS = Object.keys(_QR_SIZES)
 
 /* eslint-disable indent,no-multi-spaces */
 const QR_SIZES = [
@@ -60,20 +60,20 @@ const QR_SIZES = [
   2812, 2216, 1582, 1222,
   2956, 2334, 1666, 1276
 ].reduce((sizes, value, index) => {
-  sizes[QR_LEVELS[index % 4]].push(value);
+  sizes[QR_LEVELS[index % 4]].push(value)
 
-  return sizes;
-}, _QR_SIZES);
+  return sizes
+}, _QR_SIZES)
 /* eslint-enable indent,no-multi-spaces */
 
 export function calculateType (lengthBytes, errorLevel = 'M') {
-  let type = 5;
+  let type = 5
 
   // subtract 3 from the capacities, since we need 2 bits for the mode and a
   // bunch more for the length.
   while (type < 40 && lengthBytes > QR_SIZES[errorLevel][type - 1] - 3) {
-    type++;
+    type++
   }
 
-  return type;
+  return type
 }

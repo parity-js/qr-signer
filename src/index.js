@@ -1,1 +1,1 @@
-export default from './QrSigner';
+export default from './QrSigner'

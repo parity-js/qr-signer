@@ -14,22 +14,4 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, { Component } from 'react';
-
-import EthereumLegacy from './EthereumLegacy';
-
-export default class Example extends Component {
-  render() {
-    return (
-      <div>
-        <EthereumLegacy />
-
-        <hr />
-
-        {/* qrcode-generator doesn't support inputs that are Uint8Array */}
-        {/* https://github.com/kazuhikoarase/qrcode-generator/issues/73 */}
-        {/* <Substrate /> */}
-      </div>
-    );
-  }
-}
+export * from './uos'

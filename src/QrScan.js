@@ -1,4 +1,4 @@
-// Copyright 2015-2018 Parity Technologies (UK) Ltd.
+// Copyright 2015-2019 Parity Technologies (UK) Ltd.
 // This file is part of Parity.
 
 // Parity is free software: you can redistribute it and/or modify
@@ -18,18 +18,18 @@
  * @class QrScan
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Reader from 'react-qr-reader';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Reader from 'react-qr-reader'
 
-const SCAN_DELAY = 100;
+const SCAN_DELAY = 100
 const SCAN_STYLE = {
   display: 'inline-block',
   width: '100%',
-  height: '100%',
-};
+  height: '100%'
+}
 
-export default function QrScan ({ onError, onScan }) {
+export default function QrScan({ onError, onScan }) {
   return (
     <Reader
       delay={SCAN_DELAY}
@@ -37,16 +37,16 @@ export default function QrScan ({ onError, onScan }) {
       onScan={onScan}
       style={SCAN_STYLE}
     />
-  );
+  )
 }
 
 QrScan.propTypes = {
   onError: PropTypes.func,
   onScan: PropTypes.func.isRequired
-};
+}
 
 QrScan.defaultProps = {
   onError: (error) => {
-    console.error('QrScan', error);
+    console.error('QrScan', error)
   }
-};
+}
