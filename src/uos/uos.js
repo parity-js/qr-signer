@@ -22,7 +22,7 @@ export function encode(network, value) {
     switch (network) {
       case 'ethereum': {
         return {
-          error: new Error('Ethereum network not supported yet')
+          error: 'Ethereum network not supported yet'
         };
       }
       case 'ethereumLegacy': {
