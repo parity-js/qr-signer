@@ -14,39 +14,4 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @class QrScan
- */
-
-import React from 'react';
-import PropTypes from 'prop-types';
-import Reader from 'react-qr-reader';
-
-const SCAN_DELAY = 100;
-const SCAN_STYLE = {
-  display: 'inline-block',
-  width: '100%',
-  height: '100%',
-};
-
-export default function QrScan({ onError, onScan }) {
-  return (
-    <Reader
-      delay={SCAN_DELAY}
-      onError={onError}
-      onScan={onScan}
-      style={SCAN_STYLE}
-    />
-  );
-}
-
-QrScan.propTypes = {
-  onError: PropTypes.func,
-  onScan: PropTypes.func.isRequired
-};
-
-QrScan.defaultProps = {
-  onError: (error) => {
-    console.error('QrScan', error);
-  }
-};
+export * from './uos';

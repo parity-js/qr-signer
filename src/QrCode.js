@@ -1,4 +1,4 @@
-// Copyright 2015-2018 Parity Technologies (UK) Ltd.
+// Copyright 2015-2019 Parity Technologies (UK) Ltd.
 // This file is part of Parity.
 
 // Parity is free software: you can redistribute it and/or modify
@@ -40,11 +40,11 @@ export default class QrCode extends Component {
     image: null
   };
 
-  componentWillMount () {
+  componentWillMount() {
     this.generateCode(this.props);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const hasChanged = nextProps.value !== this.props.value ||
       nextProps.size !== this.props.size ||
       nextProps.margin !== this.props.margin;
@@ -54,7 +54,7 @@ export default class QrCode extends Component {
     }
   }
 
-  render () {
+  render() {
     const { className } = this.props;
     const { image } = this.state;
 
@@ -68,7 +68,7 @@ export default class QrCode extends Component {
     );
   }
 
-  generateCode (props) {
+  generateCode(props) {
     const { value } = props;
     const type = calculateType(value.length, QROPTS.ERROR_LEVEL);
     const qr = qrcode(0, 'M');

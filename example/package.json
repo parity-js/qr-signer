@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@parity/qr-signer": "^0.3.2",
+    "@polkadot/api": "^0.82.0-beta.70",
     "prop-types": "^15.4.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

@@ -14,39 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @class QrScan
- */
+import { ethereumLegacyEncode } from './ethereumLegacy';
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Reader from 'react-qr-reader';
-
-const SCAN_DELAY = 100;
-const SCAN_STYLE = {
-  display: 'inline-block',
-  width: '100%',
-  height: '100%',
-};
-
-export default function QrScan({ onError, onScan }) {
-  return (
-    <Reader
-      delay={SCAN_DELAY}
-      onError={onError}
-      onScan={onScan}
-      style={SCAN_STYLE}
-    />
-  );
-}
-
-QrScan.propTypes = {
-  onError: PropTypes.func,
-  onScan: PropTypes.func.isRequired
-};
-
-QrScan.defaultProps = {
-  onError: (error) => {
-    console.error('QrScan', error);
-  }
-};
+describe('ethereumLegacy', () => {
+  it('should correctly clean input', () => {
+    expect(
+      ethereumLegacyEncode({
+        action: 'signTransaction',
+        data: {
+          account: '0x007311b88A03af17dbb37B47ab7C9Ab556708D56',
+          rlp:
+            '0xeb808504a817c8008252089400255cf193f1ba6dd3ec08ebe62e393030f4dd34872386f26fc10000802a8080'
+        }
+      })
+    ).toEqual({
+      action: 'signTransaction',
+      data: {
+        account: '007311b88A03af17dbb37B47ab7C9Ab556708D56',
+        rlp:
+          'eb808504a817c8008252089400255cf193f1ba6dd3ec08ebe62e393030f4dd34872386f26fc10000802a8080'
+      }
+    });
+  });
+});
