@@ -71,10 +71,10 @@ function validate(json) {
       `Expected Uint8Array 'data' field, got ${json.data}`
     );
   } else if (json.action === 'signTransactionHash') {
-    // MUST be the Blake2s 32-byte hash
+    // MUST be the Blake2s 32-byte hash of the signature payload
     assert(
       json.data instanceof Uint8Array && json.data.length === 32,
-      `Expected Uint8Array 'data' field, got ${json.data}`
+      `Expected Uint8Array 'data' field of length 32, got ${json.data}`
     );
   }
 }
