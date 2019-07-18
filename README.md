@@ -15,9 +15,9 @@ npm install --save @parity/qr-signer
 - `scan` - boolean, required - Whether to show the QR scanner or a QR code.
 - `onScan` - function, required - Callback that will be executed with the data scanned from the QR code.
 - `size` - number - Display width and height in pixels, QR code will be scaled if necessary.
-- `network` - `'ethereumLegacy' | 'substrate'`, required if `scan === false` - The network on which we want to show the QR code. This determines the shape the `payload` has to have.
-- `payload` - object, required if `scan === false` - The payload to sign, following [UOS](https://github.com/maciejhirsz/uos) specification.
-- `onError` - function - A callback function which is called when there's an error encoding the payload.
+- `network` - `'ethereumLegacy' | 'substrate'`, required if `scan === false` - The network on which we want to show the QR code. This determines the shape of `payload`.
+- `payload` - object, required if `scan === false` - The payload to sign, depending on network.
+- `onError` - (err: string) => void - A callback function which is called when there's an error encoding the payload.
 
 The `payload` object's shape depends on the network. Below are defined how the payload should look in each network `'ethereumLegacy'` or `'substrate'`:
 
@@ -105,7 +105,7 @@ class Example extends Component {
 }
 ```
 
-See [`<Substrate />` example]('./example/src/Substrate.js') for an example with Substrate.
+See [`<Substrate />` example](./example/src/Substrate.js) for an example with Substrate.
 
 ## License
 
